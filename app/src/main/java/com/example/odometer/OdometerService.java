@@ -25,6 +25,7 @@ public class OdometerService extends Service {
     private final Random random = new Random();// временно возвращаем случайное число
 
     private static double distanceInMeters;// расстояние
+    private static double speed;// скорость
 
     private static Location lastLocation = null; // последнее местоположение
 
@@ -43,7 +44,7 @@ public class OdometerService extends Service {
                 }
                 distanceInMeters += location.distanceTo(lastLocation); //Обновляет пройденное расстояние и последнее местонахождение пользователя.
                 lastLocation = location;
-                //distanceInMeters =location.getSpeed();// можно показывать скорость
+                speed = location.getSpeed();// можно показывать скорость
             }
 
             @Override
@@ -85,10 +86,15 @@ public class OdometerService extends Service {
         return binder;
     }
 
-    public double getDistance() {//получаем случайное вещественное число
-        //return random.nextDouble();
+    public double getDistance() {
+
         // Расстояние в метрах преобразуется в мили. При желании точность вычислений можно было бы повысить, но для наших целей хватит и этой точности.
-        return this.distanceInMeters / 1609.344;
+        return distanceInMeters;
+//return this.distanceInMeters / 1609.344;
+    }
+
+    public double getSpeed() {
+        return speed;
 
     }
 

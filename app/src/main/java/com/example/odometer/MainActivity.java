@@ -80,18 +80,26 @@ public class MainActivity extends AppCompatActivity {
 
     private void displayDistance() {//Вывод значения, возвращенного методом getDistance() службы.
         final TextView distanceView = (TextView) findViewById(R.id.distance);
+        final TextView speedView = (TextView) findViewById(R.id.speed);
         final Handler handler = new Handler();// создаем объект  Handler
         handler.post(new Runnable() { //Вызвать метод post() класса Handler, передав ему объект Runnable.
             @Override
             public void run() {
                 double distance = 0.0;
+                double speed = 0.0;
+
                 if (bound && odometer != null) {
                     distance = odometer.getDistance();// Вызывает метод getDistance() службы OdometerService.
+                    speed=odometer.getSpeed();
                 }
                 String distanceStr = String.format(Locale.getDefault(),
-                        "%1$,.2f miles", distance);
+                        "%1$,.2f m", distance);
+                String speedStr = String.format(Locale.getDefault(),
+                        "%1$,.2f km/h", speed);
+
                 distanceView.setText(distanceStr);
-                handler.postDelayed(this, 1000); // значение обновляется каждую секунду
+                speedView.setText(speedStr);
+                handler.postDelayed(this, 200); // значение обновляется каждые 0,2с
             }
         });
     }
