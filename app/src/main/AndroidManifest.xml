@@ -12,6 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Odometer"
         tools:targetApi="31">
+
+        <service
+            android:name=".OdometerService"
+            android:enabled="true"
+            android:exported="false"></service>
+
         <activity
             android:name=".MainActivity"
             android:exported="true">
